@@ -3,19 +3,33 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {
+    list: ['spaghetti', 'ice cream', 'sushi', 'bologna', 'cheese'],
+    userInput: '',
+  }
+
+  handleChange(value){
+    this.setState({userInput: value})
+    
+  }
+
   render() {
+    let listToDisplay = this.state.list.filter(( el, i ) => {
+      return el.includes(this.state.userInput) 
+  }).map(( el, i ) => {
+    return <h2 key={i}> {el} </h2>
+  })
+
+  
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input type="text" onChange={ (e) => this.handleChange(e.target.value) }/>
+        {listToDisplay}
       </div>
     );
   }
 }
 
 export default App;
+
